@@ -1,6 +1,6 @@
 version: "2"
 x-redash-service: &redash-service
-  image: redash/redash:8.0.0.b32245
+  image: redash/redash:10.1.0.b50633
   depends_on:
     - postgres
     - redis
@@ -17,9 +17,12 @@ services:
   scheduler:
     <<: *redash-service
     command: scheduler
+  worker:
+    <<: *redash-service
+    command: worker
     environment:
-      QUEUES: "celery"
-      WORKERS_COUNT: 1
+      QUEUES: "periodic emails default"
+      WORKERS_COUNT: 1 
   scheduled_worker:
     <<: *redash-service
     command: worker
@@ -42,11 +45,15 @@ services:
       - /opt/redash/postgres-data:/var/lib/postgresql/data
     restart: always
   nginx:
-    image: redash/nginx:latest
+    image: nginx:latest
     ports:
-      - "80:80"
+     - "80:80"
+     - "443:443"
     depends_on:
-      - server
+     - server
     links:
-      - server:redash
+     - server:redash
+    volumes:
+     - /opt/redash/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+     - /etc/letsencrypt:/etc/letsencrypt
     restart: always
