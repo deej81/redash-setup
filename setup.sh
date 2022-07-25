@@ -23,18 +23,18 @@ install_docker(){
 }
 
 create_directories() {
-    if [[ ! -e $REDASH_BASE_PATH ]]; then
+    if [ ! -e $REDASH_BASE_PATH ]; then
         sudo mkdir -p $REDASH_BASE_PATH
         sudo chown $USER:$USER $REDASH_BASE_PATH
     fi
 
-    if [[ ! -e $REDASH_BASE_PATH/postgres-data ]]; then
+    if [ ! -e $REDASH_BASE_PATH/postgres-data ]; then
         mkdir $REDASH_BASE_PATH/postgres-data
     fi
 }
 
 create_config() {
-    if [[ -e $REDASH_BASE_PATH/env ]]; then
+    if [ -e $REDASH_BASE_PATH/env ]; then
         rm $REDASH_BASE_PATH/env
         touch $REDASH_BASE_PATH/env
     fi
