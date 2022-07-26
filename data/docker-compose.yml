@@ -45,15 +45,11 @@ services:
       - /opt/redash/postgres-data:/var/lib/postgresql/data
     restart: always
   nginx:
-    image: nginx:latest
+    image: redash/nginx:latest
     ports:
      - "80:80"
-     - "443:443"
     depends_on:
      - server
     links:
      - server:redash
-    volumes:
-     - /opt/redash/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-     - /etc/letsencrypt:/etc/letsencrypt
     restart: always
