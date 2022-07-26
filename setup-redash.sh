@@ -37,6 +37,7 @@ create_config() {
     echo "REDASH_COOKIE_SECRET=$COOKIE_SECRET" >> $REDASH_BASE_PATH/env
     echo "REDASH_SECRET_KEY=$SECRET_KEY" >> $REDASH_BASE_PATH/env
     echo "REDASH_DATABASE_URL=$REDASH_DATABASE_URL" >> $REDASH_BASE_PATH/env
+    echo "POSTGRESS_HOST_AUTH_METHOD=trust" >> $REDASH_BASE_PATH/env
 }
 
 copy_nginx_config() {
@@ -59,6 +60,8 @@ setup_compose() {
     echo "export COMPOSE_FILE=/opt/redash/docker-compose.yml" >> ~/.profile
     export COMPOSE_PROJECT_NAME=redash
     export COMPOSE_FILE=/opt/redash/docker-compose.yml
+    sudo docker-compose up -d
+    sudo docker-compose down
     sudo docker-compose run --rm server create_db
     sudo docker-compose up -d
 }
