@@ -39,7 +39,7 @@ copy_nginx_config() {
 	if [ -e $REDASH_BASE_PATH/nginx/nginx.conf ]; then
         rm -r $REDASH_BASE_PATH/nginx/nginx.conf
     fi
-	mv data/nginx.conf $REDASH_BASE_PATH/nginx/
+	cp data/nginx.conf $REDASH_BASE_PATH/nginx/
 }
 
 setup_compose() {
@@ -47,8 +47,8 @@ setup_compose() {
 	if [ -e $REDASH_BASE_PATH/docker-compose.yml ]; then
         rm -r $REDASH_BASE_PATH/docker-compose.yml
     fi
-	mv docker-compose.yml $REDASH_BASE_PATH/
-	
+	cp data/docker-compose.yml $REDASH_BASE_PATH/
+
     cd $REDASH_BASE_PATH
 
     echo "export COMPOSE_PROJECT_NAME=redash" >> ~/.profile
