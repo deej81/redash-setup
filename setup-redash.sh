@@ -43,8 +43,14 @@ copy_nginx_config() {
 }
 
 setup_compose() {
+
+	if [ -e $REDASH_BASE_PATH/docker-compose.yml ]; then
+        rm -r $REDASH_BASE_PATH/docker-compose.yml
+    fi
+	mv docker-compose.yml $REDASH_BASE_PATH/
+	
     cd $REDASH_BASE_PATH
-    wget https://raw.githubusercontent.com/deej81/redash-setup/master/data/docker-compose.yml
+
     echo "export COMPOSE_PROJECT_NAME=redash" >> ~/.profile
     echo "export COMPOSE_FILE=/opt/redash/docker-compose.yml" >> ~/.profile
     export COMPOSE_PROJECT_NAME=redash
