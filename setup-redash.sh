@@ -37,7 +37,7 @@ create_config() {
 
 copy_nginx_config() {
 	if [ -e $REDASH_BASE_PATH/nginx/nginx.conf ]; then
-        rm $REDASH_BASE_PATH/nginx/nginx.conf
+        rm -r $REDASH_BASE_PATH/nginx/nginx.conf
     fi
 
 	mv data/nginx.conf $REDASH_BASE_PATH/nginx/
