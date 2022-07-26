@@ -13,6 +13,10 @@ create_directories() {
     if [ ! -e $REDASH_BASE_PATH/postgres-data ]; then
         mkdir $REDASH_BASE_PATH/postgres-data
     fi
+
+	if [ ! -e $REDASH_BASE_PATH/nginx ]; then
+        mkdir $REDASH_BASE_PATH/nginx
+    fi
 }
 
 create_config() {
